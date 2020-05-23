@@ -18,59 +18,9 @@ public class InputTest {
 
     private static void testInputByteArray(StreamTypes stream) {
         try {
-            InputStream in;
-            switch (stream) {
-                case ALTERNATING:
-                    in = new LowerCaseInputStream(new BufferedInputStream(new FileInputStream("test.txt")));
-                    System.out.println(stream.description + " from byte array");
-                    getInputFromByteArray(in);
-                    break;
-                case LOWER:
-                    in = new AlternatingCaseInputStream(new BufferedInputStream(new FileInputStream("test.txt")));
-                    System.out.println(stream.description + " from byte array");
-                    getInputFromByteArray(in);
-                    break;
-                case FLIP:
-                    in = new FlipCaseInputStream(new BufferedInputStream(new FileInputStream("test.txt")));
-                    System.out.println(stream.description + " from byte array");
-                    getInputFromByteArray(in);
-                    break;
-                case L33T:
-                    in = new L33tSpeakInputStream(new BufferedInputStream(new FileInputStream("test.txt")));
-                    System.out.println(stream.description + " from byte array");
-                    getInputFromByteArray(in);
-                    break;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static void testInputTextFile(StreamTypes stream) {
-        try {
-            InputStream in;
-            switch (stream) {
-                case LOWER:
-                    in = new LowerCaseInputStream(new BufferedInputStream(new FileInputStream("test.txt")));
-                    System.out.println(stream.description + " from file");
-                    getInputFromFile(in);
-                    break;
-                case ALTERNATING:
-                    in = new AlternatingCaseInputStream(new BufferedInputStream(new FileInputStream("test.txt")));
-                    System.out.println(stream.description + " from file");
-                    getInputFromFile(in);
-                    break;
-                case FLIP:
-                    in = new FlipCaseInputStream(new BufferedInputStream(new FileInputStream("test.txt")));
-                    System.out.println(stream.description + " from file");
-                    getInputFromFile(in);
-                    break;
-                case L33T:
-                    in = new L33tSpeakInputStream(new BufferedInputStream(new FileInputStream("test.txt")));
-                    System.out.println(stream.description + " from file");
-                    getInputFromFile(in);
-                    break;
-            }
+            InputStream in = initialiseStream(stream);
+            System.out.println(stream.description + " from byte array");
+            getInputFromByteArray(in);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -85,6 +35,37 @@ public class InputTest {
         }
         System.out.println();
         in.close();
+    }
+
+    private static void testInputTextFile(StreamTypes stream) {
+        try {
+            InputStream in = initialiseStream(stream);
+            System.out.println(stream.description + " from file");
+            getInputFromFile(in);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static InputStream initialiseStream(StreamTypes stream) throws FileNotFoundException {
+        InputStream in;
+        switch (stream) {
+            case LOWER:
+                in = new LowerCaseInputStream(new BufferedInputStream(new FileInputStream("test.txt")));
+                break;
+            case ALTERNATING:
+                in = new AlternatingCaseInputStream(new BufferedInputStream(new FileInputStream("test.txt")));
+                break;
+            case FLIP:
+                in = new FlipCaseInputStream(new BufferedInputStream(new FileInputStream("test.txt")));
+                break;
+            case L33T:
+                in = new L33tSpeakInputStream(new BufferedInputStream(new FileInputStream("test.txt")));
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + stream);
+        }
+        return in;
     }
 
     private enum StreamTypes {
