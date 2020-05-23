@@ -32,7 +32,7 @@ public class InputTest {
                     getInputFromByteArray(in);
                     break;
                 case "REVERSE":
-                    in = new ReverseCaseInputStream(new BufferedInputStream(new FileInputStream("test.txt")));
+                    in = new FlipCaseInputStream(new BufferedInputStream(new FileInputStream("test.txt")));
                     System.out.println(stream + " from byte array");
                     getInputFromByteArray(in);
                     break;
@@ -74,7 +74,7 @@ public class InputTest {
                     getInputFromFile(in);
                     break;
                 case "REVERSE":
-                    in = new ReverseCaseInputStream(new BufferedInputStream(new FileInputStream("test.txt")));
+                    in = new FlipCaseInputStream(new BufferedInputStream(new FileInputStream("test.txt")));
                     System.out.println(stream + " from file");
                     getInputFromFile(in);
                     break;
