@@ -49,18 +49,19 @@ public class InputTest {
 
     private static InputStream initialiseStream(StreamTypes stream) throws FileNotFoundException {
         InputStream in;
+        InputStream baseStream = new BufferedInputStream(new FileInputStream("test.txt"));
         switch (stream) {
             case LOWER:
-                in = new LowerCaseInputStream(new BufferedInputStream(new FileInputStream("test.txt")));
+                in = new LowerCaseInputStream(baseStream);
                 break;
             case ALTERNATING:
-                in = new AlternatingCaseInputStream(new BufferedInputStream(new FileInputStream("test.txt")));
+                in = new AlternatingCaseInputStream(baseStream);
                 break;
             case FLIP:
-                in = new FlipCaseInputStream(new BufferedInputStream(new FileInputStream("test.txt")));
+                in = new FlipCaseInputStream(baseStream);
                 break;
             case L33T:
-                in = new L33tSpeakInputStream(new BufferedInputStream(new FileInputStream("test.txt")));
+                in = new L33tSpeakInputStream(baseStream);
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + stream);

@@ -13,7 +13,6 @@ public class AlternatingCaseInputStream extends FilterInputStream {
 
     public int read() throws IOException {
         int c = in.read();
-
         if (c != -1) {
             c = alternateCase((char) c);
         }
