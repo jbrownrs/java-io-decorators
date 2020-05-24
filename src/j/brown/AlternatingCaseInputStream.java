@@ -16,7 +16,6 @@ public class AlternatingCaseInputStream extends FilterInputStream {
 
         if (c != -1) {
             c = alternateCase((char) c);
-            charPosition++;
         }
         return c;
     }
@@ -25,9 +24,9 @@ public class AlternatingCaseInputStream extends FilterInputStream {
         int result = in.read(b, offset, len);
         for (int i = offset; i < len - offset; i++) {
             if (charPosition % 2 == 0) {
-                b[i] = (byte) Character.toLowerCase((char) b[i]);
-            } else {
                 b[i] = (byte) Character.toUpperCase((char) b[i]);
+            } else {
+                b[i] = (byte) Character.toLowerCase((char) b[i]);
             }
             charPosition++;
         }
@@ -35,10 +34,12 @@ public class AlternatingCaseInputStream extends FilterInputStream {
     }
 
     private char alternateCase(char c) {
-        if (charPosition % 2 == 0) {
+        if (Character.isLetter(c) && charPosition % 2 == 0) {
             c = (char) Character.toUpperCase((int) c);
-        } else {
+            charPosition++;
+        } else if (Character.isLetter(c)) {
             c = (char) Character.toLowerCase((int) c);
+            charPosition++;
         }
         return c;
     }
