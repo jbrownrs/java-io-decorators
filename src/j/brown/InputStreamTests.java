@@ -20,9 +20,7 @@ class InputStreamTests {
 
     private void compare(String expected, InputStream input) throws IOException {
         for (int i = 0; i < expected.length(); i++) {
-
             char in = (char) input.read();
-            System.out.println("Expected is " + expected.charAt(i) + " and we are checking against " + in);
             assertEquals(expected.charAt(i), in);
         }
     }
@@ -30,7 +28,6 @@ class InputStreamTests {
     private void compareByte(String expected, InputStream testStream) throws IOException {
         while (testStream.read(fBuffer, 0, fBuffer.length) >= 0) {
             for (int i = 0; i < fBuffer.length; i++) {
-                System.out.println("Expected is " + expected.charAt(i) + " and we are checking against " + (char) fBuffer[i]);
                 assertEquals(expected.charAt(i), (char) fBuffer[i]);
             }
         }
