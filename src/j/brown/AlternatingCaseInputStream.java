@@ -23,12 +23,7 @@ public class AlternatingCaseInputStream extends FilterInputStream {
     public int read(byte[] b, int offset, int len) throws IOException {
         int result = in.read(b, offset, len);
         for (int i = offset; i < len - offset; i++) {
-            if (charPosition % 2 == 0) {
-                b[i] = (byte) Character.toUpperCase((char) b[i]);
-            } else {
-                b[i] = (byte) Character.toLowerCase((char) b[i]);
-            }
-            charPosition++;
+            b[i] = (byte) alternateCase((char) b[i]);
         }
         return result;
     }
