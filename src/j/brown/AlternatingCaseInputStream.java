@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class AlternatingCaseInputStream extends FilterInputStream {
-    private static int charPosition = 0;
+    private int charPosition = 0;
 
     public AlternatingCaseInputStream(InputStream in) {
         super(in);
